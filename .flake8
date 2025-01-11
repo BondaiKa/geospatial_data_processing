@@ -1,0 +1,4 @@
+[flake8]
+ignore = E231, E402, W503, W605, E128
+exclude = .git,__pycache__,build,dist,tests,.development-environment,.production-environment,target,notebooks,doc
+max-line-length = 120

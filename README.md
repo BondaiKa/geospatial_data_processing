@@ -7,24 +7,24 @@ A comprehensive repository featuring code for preprocessing orthophotos based on
 - Deadline: 13.01.2024
 
 ## My current TODO list:
-- [ ] Read carefully task defintion (2 times or more to verify that this is exactly what company asks!) and write for yourself task definition.
-    - [ ] Verify that you don't need to read image to provide `Latitude` and `Longitude`.
-    - [ ] Check the ways of potential optimization of input images. Can I do preprocessing or it's not possible?
-    - [ ] Find the way how to use the promt with constant `radious`.
-- [ ] Understand data first.
+- [X] Read carefully task defintion (2 times or more to verify that this is exactly what company asks!) and write for yourself task definition.
+    - [X] Verify that you don't need to read image to provide `Latitude` and `Longitude`.
+    - [X] Find the way how to use the promt with constant `radious`.
+- [ ] Understand data first (at least read it and look with you own eyes!).
 - [ ] Learn more about Geospatial data handling, GIS, and Coordinate Reference Systems (CRS).
 - [ ] Write dumb pipeline (_time_ is more important than _optimization_).
 - [ ] Document the process.
 - [ ] Write draft slides.
 - [ ] Submit, If there is no time remain.
 - [ ] Optimize the process.
+    - [X] Check the ways of potential optimization of input images. Can I do preprocessing or it's not possible?
 - [ ] Update Documentation.
 - [ ] Submit.
 
 ## Prequistitions
 
 - [X] Proficiency in Python programming.
-- [] Knowledge of Geospatial data handling, GIS, and Coordinate Reference Systems (CRS).
+- [X] Knowledge of Geospatial data handling, GIS, and Coordinate Reference Systems (CRS).
 - [X] Experience with image processing libraries in Python, such as PIL or OpenCV.
 
 ## Task

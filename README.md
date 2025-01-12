@@ -27,3 +27,12 @@ Retrieve and return `latitude`, `longitude` and `image` from data.
 - Real dataset could be much bigger than provided one.
 - There is information, that one filename `...X_Y...` has latitude, longtitude range from `X/Y` till `X/Y+1000` and I need to extract It.
 - `radius` param could be from `1` till `100` meters.
+
+## Name Conventions in the Project.
+
+Prefer `Projcted CRS` to `Geographic CRS`
+- `Latitude`/`X`/ `Easting` are always come first in coordinates pair
+- `Longitude`/`Y`/ `Northing` are always come second in coordinates pair 
+
+In case of boxes there is next order convention (Latitude comes first, Longitude second here as well):
+- Latitude Left (Min X), Longitude Bottom (Min Y), Latitude Right (Max X), Latitude Top (Max Y) (⬅️, ⬇️, ➡️, ⬆️)

@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import rasterio
@@ -6,8 +7,9 @@ import rasterio
 log = logging.getLogger(__name__)
 
 
-def get_image(lat: float, long: float, radius: float = 100) -> None:
-    logging.info(f"Reading set input data: lat {lat}, long: {long}, and radius {radius}.")
+def get_image(latitude: float, longitude: float, radius: float = 100) -> None:
+    """Required target function for the home assigment"""
+    logging.info(f"Reading set input data: lat {latitude}, long: {longitude}, and radius {radius}.")
     image_path = "data/orthophotos/nw/dop10rgbi_32_462_5766_1_nw_2022.jp2"
 
     with rasterio.open(image_path) as src:
@@ -15,8 +17,8 @@ def get_image(lat: float, long: float, radius: float = 100) -> None:
         data = src.read(1)  # Band 1 is often the main data
 
         # Display metadata about the file
-        print("File metadata:")
-        print(src.meta)
+        logging.info("File metadata:")
+        logging.info(src.meta)
 
         # Plot the data
         plt.imshow(data, cmap="viridis")
@@ -29,4 +31,8 @@ def get_image(lat: float, long: float, radius: float = 100) -> None:
 
 if __name__ == "__main__":
     logging.basicConfig(format="[%(asctime)s] [%(levelname)s] %(message)s", level=logging.INFO)
-    get_image(1, 1)
+
+    image_path = Path("data/orthophotos/nw/dop10rgbi_32_462_5766_1_nw_2022.jp2")
+    image_name = image_path.name
+    print(image_name)
+    # get_image(1, 1)

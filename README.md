@@ -1,6 +1,13 @@
 # Geospatial Data Processing
 A comprehensive repository, that contains all necesary information/instructures/code for preprocessing orthophotos based on geospatial queries, including stitching, resizing, and performance optimization.
 
+## Project Structure
+
+- `notebooks/` - contains analysis or attempt walkthrough how I solved some issues
+- `main.py` - entrypoin of the repostory.
+- `utils.py` - is used in `main.py` as well as in notebooks.
+- `pyproject.toml` - list of packages to install (similar to `requirements.txt`)
+
 ## General information
 - Official started date: 10.01.2024 (14:00 CET)
 - Real started date: 11.01.2024
@@ -21,6 +28,7 @@ A comprehensive repository, that contains all necesary information/instructures/
 - [X] Understand data first (at least read it and look with you own eyes!).
 - [X] Learn more about Geospatial data handling, GIS, and Coordinate Reference Systems (CRS).
 - [X] Write `dumb` pipeline (_time_ is more important than _optimization_) for now.
+- [ ] Add tests.
 - [X] Document the process.
 - [ ] Write draft slides.
 - [X] Optimize the process.
@@ -43,9 +51,8 @@ Retrieve and return `image` from data from provided `latitude` and `longitude`.
 
 To get started with this project, follow the steps below:
 
-0. Prequistitions
-- Install `python`, `poetry`.
-
+0. **Prequistitions**:
+    - Install `python`, `poetry`.
 1. **Clone the Repository**:
    ```bash
    git clone git@github.com:BondaiKa/geospatial_data_processing.git

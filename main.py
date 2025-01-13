@@ -83,8 +83,6 @@ def get_image(
         (E.g. '/Users/ksafiullin/src/geospatial-data-processing/data/orthophotos/nw').
 
     @TODO Karim: now logic based on filenames which is not good, but better that nothing =D
-    @TODO Karim: Rare case, when only part of tile images are available and I need to fill
-        partially with black images, not implemented.
 
     Steps:
     1) Verify incoming data is on EPSG:4326 format.
@@ -200,4 +198,4 @@ if __name__ == "__main__":
     get_image(
         *convert_epsg_25832_to_epsg_4326(469999, 5773999),
         dataset_directory_path=f"{DATASET_DIRECTORY_ROOT_PATH}/data/orthophotos/nw",
-    ).show(title="Black 256x256 Image")
+    ).show(title="Partial 1/4 Tile Image")

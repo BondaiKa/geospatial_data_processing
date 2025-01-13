@@ -29,6 +29,7 @@ A comprehensive repository, that contains all necesary information/instructures/
 - [X] Learn more about Geospatial data handling, GIS, and Coordinate Reference Systems (CRS).
 - [X] Write `dumb` pipeline (_time_ is more important than _optimization_) for now.
 - [ ] Add tests.
+- [ ] Add `click` libarary to run main.py  more conveniet way and play with `latitude` and `longitudes` in terminal.
 - [X] Document the process.
 - [ ] Write draft slides.
 - [X] Optimize the process.

@@ -122,6 +122,12 @@ def concat_two_tile_images(
     final_image_bounding_box: Tuple[LatitudeLeft, LongitudeBottom, LatitudeRight, LatitudeTop],
     tile_image_paths: List[pathlib.Path],
 ):
+    """Concat two tile images that are retrieved from dataset and return concated image
+
+    Basically concatiantion logic based on filenames and not on real image location. I keep it this
+    way because I realised that I don't have time to implement bettwer logic: to insert partyally
+    read images from provided dataset via rasterio to initial black EPSG_25832 image.
+    """
     first_tile_langitude, first_tile_longitude = get_file_latitude_longitude(tile_image_paths[0])
     second_tile_langitude, second_tile_longitude = get_file_latitude_longitude(tile_image_paths[1])
 

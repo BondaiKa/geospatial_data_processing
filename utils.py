@@ -9,6 +9,9 @@ import rasterio
 from PIL import Image
 from pyproj import Transformer
 
+logging.basicConfig(format="[%(asctime)s] [%(levelname)s] %(message)s", level=logging.INFO)
+log = logging.getLogger(__name__)
+
 # Typing
 Latitude = float
 Longitude = float
@@ -18,8 +21,6 @@ LongitudeBottom = float
 LatitudeRight = float
 LatitudeTop = float
 
-logging.basicConfig(format="[%(asctime)s] [%(levelname)s] %(message)s", level=logging.INFO)
-log = logging.getLogger(__name__)
 
 TransformerFromCRS = lru_cache(Transformer.from_crs)
 

@@ -2,8 +2,11 @@ import logging
 import pathlib
 import re
 from functools import lru_cache
-from typing import Tuple
+from typing import List, Tuple
 
+import numpy as np
+import rasterio
+from PIL import Image
 from pyproj import Transformer
 
 # Typing
@@ -69,3 +72,77 @@ def convert_epsg_25832_to_epsg_4326(latitude: float, longitude: float) -> Tuple[
     latitude, longitude = utm32_to_wgs84.transform(xx=latitude, yy=longitude)
     log.debug(f"Converted to (latitude, longitude): ({latitude}, {longitude}) degrees")
     return (latitude, longitude)
+
+
+def concat_hortizontally(left_image, right_image):
+    dst = Image.new("RGB", (left_image.width + right_image.width, left_image.height))
+    dst.paste(left_image, (0, 0))
+    dst.paste(right_image, (left_image.width, 0))
+    return dst
+
+
+def concat_vertically(top_image, bottom_image):
+    dst = Image.new("RGB", (top_image.width, top_image.height + bottom_image.height))
+    dst.paste(top_image, (0, 0))
+    dst.paste(bottom_image, (0, top_image.height))
+    return dst
+
+
+def get_file_latitude_longitude(
+    tile_image_path: pathlib.Path,
+) -> Tuple[Latitude, Longitude]:
+    pattern = r"dop10rgbi_32_(\d+)_(\d+)_1_nw_\d{4}\.jp2"
+    match = re.match(pattern, tile_image_path.name)
+    if match is None:
+        # TODO @Karim: Need to handle the case when it's different file name convention
+        raise ValueError(f"Invalid file name format: {tile_image_path.name}")
+    return (float(match.group(1)), float(match.group(2)))
+
+
+def generate_tile_image(
+    tile_bounding_box: Tuple[LatitudeLeft, LongitudeBottom, LatitudeRight, LatitudeTop],
+    tile_image_path: pathlib.Path,
+):
+    log.info(f"Generating {tile_image_path.stem} tile image")
+    with rasterio.open(tile_image_path) as src:
+        window = rasterio.windows.from_bounds(
+            *tile_bounding_box,
+            transform=src.transform,
+        )
+        log.info(window)
+        partial_rgb = src.read([1, 2, 3], window=window)
+        log.info(partial_rgb.shape)
+
+        partial_rgb = np.transpose(partial_rgb, (1, 2, 0))
+        return Image.fromarray(partial_rgb, mode="RGB")
+
+
+def concat_two_tile_images(
+    final_image_bounding_box: Tuple[LatitudeLeft, LongitudeBottom, LatitudeRight, LatitudeTop],
+    tile_image_paths: List[pathlib.Path],
+):
+    first_tile_langitude, first_tile_longitude = get_file_latitude_longitude(tile_image_paths[0])
+    second_tile_langitude, second_tile_longitude = get_file_latitude_longitude(tile_image_paths[1])
+
+    if first_tile_langitude == second_tile_langitude:
+        if first_tile_longitude < second_tile_longitude:
+            return concat_vertically(
+                generate_tile_image(final_image_bounding_box, tile_image_paths[0]),
+                generate_tile_image(final_image_bounding_box, tile_image_paths[1]),
+            )
+        else:
+            return concat_vertically(
+                generate_tile_image(final_image_bounding_box, tile_image_paths[1]),
+                generate_tile_image(final_image_bounding_box, tile_image_paths[0]),
+            )
+    elif first_tile_longitude == second_tile_longitude:
+        if second_tile_langitude > first_tile_langitude:
+            return concat_hortizontally(
+                generate_tile_image(final_image_bounding_box, tile_image_paths[0]),
+                generate_tile_image(final_image_bounding_box, tile_image_paths[1]),
+            )
+        else:
+            return concat_hortizontally(
+                generate_tile_image(final_image_bounding_box, tile_image_paths[1]),
+                generate_tile_image(final_image_bounding_box, tile_image_paths[0]),
+            )

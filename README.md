@@ -59,11 +59,14 @@ To get started with this project, follow the steps below:
    git clone git@github.com:BondaiKa/geospatial_data_processing.git
    cd geospatial_data_processing
    ```
-2. poetry install
+2. **Install virtual environment**
     ```bash
     poetry install
     ```
-3. Run main.py
+3. **Download and unzip dataset manually**
+You can download it everywhere, the only thing you need to do is to change `DATASET_DIRECTORY_ROOT_PATH` variable in notebooks or `main.py` as well.
+
+4. Run main.py
     ```bash
     poetry run python main.py
     ```

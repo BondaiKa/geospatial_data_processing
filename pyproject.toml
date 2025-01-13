@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "geospatial_data_processing"
+version = "0.1.0"
+description = "Geospatial data processing home assigment for one company."
+authors = ["Karim <st.herbinar@gmail.com>"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+rasterio = "^1.4.3"
+ipykernel = "^6.29.5"
+pyproj = "^3.7.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+pre-commit = "^4.0.1"
+isort = "^5.13.2"
+flake8 = "^7.1.1"
+mypy = "^1.14.1"
+pillow = "^11.1.0"
+matplotlib = "^3.10.0"
+ipykernel = "^6.29.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

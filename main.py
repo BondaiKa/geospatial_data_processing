@@ -147,14 +147,18 @@ def get_image(
 if __name__ == "__main__":
     logging.basicConfig(format="[%(asctime)s] [%(levelname)s] %(message)s", level=logging.INFO)
 
+    # Please change path below
+    DATASET_DIRECTORY_ROOT_PATH = "/Users/ksafiullin/src/geospatial_data_processing"
+
     ###############################################################################################
     # In the middle coordinates of 'dop10rgbi_32_468_5772_1_nw_2022' image file.
     # Expected to provide 1 tile  (cutted  in the middle 'dop10rgbi_32_468_5772_1_nw_2022' image)
     ###############################################################################################
+    log.info("Run Case 1...")
     get_image(
         latitude=8.54010563577907,
         longitude=52.10215462837978,
-        dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",
+        dataset_directory_path=f"{DATASET_DIRECTORY_ROOT_PATH}/data/orthophotos/nw",
         radius=100,
     ).show(title="1 Image case")
 
@@ -162,16 +166,37 @@ if __name__ == "__main__":
     # Test on the corner of 'dop10rgbi_32_468_5772_1_nw_2022',
     # will it provide concated 4 tiles or not.
     ###############################################################################################
+    log.info("Run Case 2...")
     get_image(
         *convert_epsg_25832_to_epsg_4326(468002, 5772002),
-        dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",
+        dataset_directory_path=f"{DATASET_DIRECTORY_ROOT_PATH}/data/orthophotos/nw",
     ).show(title="4 Tile images case")
 
     ###############################################################################################
     # Test on the border of 'dop10rgbi_32_468_5772_1_nw_2022' and
     # 'dop10rgbi_32_468_5771_1_nw_2022' , will it provide concated 2 tiles or not.
     ###############################################################################################
+    log.info("Run Case 3...")
     get_image(
         *convert_epsg_25832_to_epsg_4326(468500, 5771998),
-        dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",
-    ).show(title="4 Tile images case")
+        dataset_directory_path=f"{DATASET_DIRECTORY_ROOT_PATH}/data/orthophotos/nw",
+    ).show(title="2 Tile images case")
+
+    ###############################################################################################
+    # Wrong coordinates. Should return empty blank image.
+    ###############################################################################################
+    log.info("Run Case 4...")
+    get_image(
+        *convert_epsg_25832_to_epsg_4326(99999, 99999),
+        dataset_directory_path=f"{DATASET_DIRECTORY_ROOT_PATH}/data/orthophotos/nw",
+    ).show(title="Black 256x256 Image")
+
+    ###############################################################################################
+    # Complicated case where only 1/4 tile image and other 3/4 is black image.
+    # Received just 1/4 image without black region, which is not perfect, but kind of okay...
+    ###############################################################################################
+    log.info("Run Case 5...")
+    get_image(
+        *convert_epsg_25832_to_epsg_4326(469999, 5773999),
+        dataset_directory_path=f"{DATASET_DIRECTORY_ROOT_PATH}/data/orthophotos/nw",
+    ).show(title="Black 256x256 Image")

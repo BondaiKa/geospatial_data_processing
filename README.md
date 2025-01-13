@@ -4,9 +4,9 @@ A comprehensive repository, that contains all necesary information/instructures/
 This `README.md` is strict format documenatation.  
 More documentation/all my thoughts in informal way I wrote [here](./docs/INFORMAL-README.md).
 ## General information
-- Official started date: 10.01.2024
+- Official started date: 10.01.2024 (14:00 CET)
 - Real started date: 11.01.2024
-- Deadline: 13.01.2024
+- Deadline: 14.01.2024 (14:00 CET, when I received an email)
 
 ## Prequistitions
 

@@ -106,7 +106,7 @@ def generate_tile_image(
     tile_bounding_box: Tuple[LatitudeLeft, LongitudeBottom, LatitudeRight, LatitudeTop],
     tile_image_path: pathlib.Path,
 ):
-    log.info(f"Generating {tile_image_path.stem} tile image.")
+    log.info(f"Generating tile image from '{tile_image_path.stem}' image.")
     with rasterio.open(tile_image_path) as src:
         window = rasterio.windows.from_bounds(
             *tile_bounding_box,

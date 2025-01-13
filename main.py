@@ -158,7 +158,7 @@ if __name__ == "__main__":
         longitude=52.10215462837978,
         dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",
         radius=100,
-    ).show()
+    ).show(title="1 Image case")
 
     ###############################################################################################
     # Test on the corner of 'dop10rgbi_32_468_5772_1_nw_2022', will it provide 4 tiles or not.
@@ -166,4 +166,4 @@ if __name__ == "__main__":
     get_image(
         *convert_epsg_25832_to_epsg_4326(468002, 5772002),
         dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",
-    ).show()
+    ).show(title="4 Tile images case")

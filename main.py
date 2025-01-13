@@ -192,6 +192,7 @@ if __name__ == "__main__":
     ).show(title="Black 256x256 Image")
 
     ###############################################################################################
+    # Last image on dataset 'dop10rgbi_32_469_5773_1_nw_2022.jp2' I will take
     # Complicated case where only 1/4 tile image and other 3/4 is black image.
     # Received just 1/4 image without black region, which is not perfect, but kind of okay...
     ###############################################################################################

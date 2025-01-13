@@ -63,7 +63,7 @@ To get started with this project, follow the steps below:
     ```bash
     poetry install
     ```
-3. **Download and unzip dataset manually**
+3. **Download and unzip dataset manually**  
 You can download it everywhere, the only thing you need to do is to change `DATASET_DIRECTORY_ROOT_PATH` variable in notebooks or `main.py` as well.
 
 4. Run main.py

@@ -135,8 +135,8 @@ def get_image(
         )
     else:
         error_message = (
-            "I didn't implement other cases with missing images in dataset. "
-            "Only when there is no found tile images at all"
+            "I didn't implement other cases with missing images in dataset, "
+            "except when there is no found tile images at all."
         )
         log.error(error_message)
         raise NotImplementedError(error_message)
@@ -145,16 +145,20 @@ def get_image(
 if __name__ == "__main__":
     logging.basicConfig(format="[%(asctime)s] [%(levelname)s] %(message)s", level=logging.INFO)
 
+    ###############################################################################################
     # In the middle coordinates of 'dop10rgbi_32_468_5772_1_nw_2022' image file.
     # Expected to provide 1 tile  (cutted  in the middle 'dop10rgbi_32_468_5772_1_nw_2022' image)
-    # get_image(
-    #     latitude=8.54010563577907,
-    #     longitude=52.10215462837978,
-    #     dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",
-    #     radius=100,
-    # ).show()
+    ###############################################################################################
+    get_image(
+        latitude=8.54010563577907,
+        longitude=52.10215462837978,
+        dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",
+        radius=100,
+    ).show()
 
+    ###############################################################################################
     # Test on the corner of 'dop10rgbi_32_468_5772_1_nw_2022', will it provide 4 tiles or not.
+    ###############################################################################################
     get_image(
         *convert_epsg_25832_to_epsg_4326(468002, 5772002),
         dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",

@@ -122,10 +122,8 @@ def get_image(
         )
 
     if len(tile_image_paths) == 2:
-        return (
-            concat_two_tile_images(final_image_bounding_box, tile_image_paths)
-            .resize((256, 256), Image.BILINEAR)  # type: ignore
-            .show()
+        return concat_two_tile_images(final_image_bounding_box, tile_image_paths).resize(
+            (256, 256), Image.BILINEAR  # type: ignore
         )
 
     if len(tile_image_paths) == 4:
@@ -161,9 +159,19 @@ if __name__ == "__main__":
     ).show(title="1 Image case")
 
     ###############################################################################################
-    # Test on the corner of 'dop10rgbi_32_468_5772_1_nw_2022', will it provide 4 tiles or not.
+    # Test on the corner of 'dop10rgbi_32_468_5772_1_nw_2022',
+    # will it provide concated 4 tiles or not.
     ###############################################################################################
     get_image(
         *convert_epsg_25832_to_epsg_4326(468002, 5772002),
+        dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",
+    ).show(title="4 Tile images case")
+
+    ###############################################################################################
+    # Test on the border of 'dop10rgbi_32_468_5772_1_nw_2022' and
+    # 'dop10rgbi_32_468_5771_1_nw_2022' , will it provide concated 2 tiles or not.
+    ###############################################################################################
+    get_image(
+        *convert_epsg_25832_to_epsg_4326(468500, 5771998),
         dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",
     ).show(title="4 Tile images case")

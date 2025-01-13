@@ -15,7 +15,7 @@ LongitudeBottom = float
 LatitudeRight = float
 LatitudeTop = float
 
-logging.basicConfig(format="[%(asctime)s] [%(levelname)s] %(message)s", level=logging.DEBUG)
+logging.basicConfig(format="[%(asctime)s] [%(levelname)s] %(message)s", level=logging.INFO)
 log = logging.getLogger(__name__)
 
 TransformerFromCRS = lru_cache(Transformer.from_crs)

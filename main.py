@@ -1,7 +1,7 @@
 import logging
 import pathlib
 from pathlib import Path
-from typing import List
+from typing import List, Tuple
 
 import numpy as np
 import rasterio
@@ -10,7 +10,7 @@ from rasterio.windows import from_bounds
 
 from utils import convert_epsg_4326_to_epsg_25832, convert_epsg_25832_to_epsg_4326, get_bounding_box, is_bbox_intersects
 
-logging.basicConfig(format="[%(asctime)s] [%(levelname)s] %(message)s", level=logging.DEBUG)
+logging.basicConfig(format="[%(asctime)s] [%(levelname)s] %(message)s", level=logging.INFO)
 log = logging.getLogger(__name__)
 
 # Typing
@@ -39,13 +39,9 @@ def validate_input(latitude: float, longitude: float, radius: float = 100, epsg_
 
 
 def get_paths_of_tile_images(
-    latitude_left: float,
-    longitude_bottom: float,
-    latitude_right: float,
-    latitude_top: float,
+    image_bounded_box: Tuple[LatitudeLeft, LongitudeBottom, LatitudeRight, LatitudeTop],
     dataset_directory_full_path: pathlib.Path,
 ) -> List[pathlib.Path]:
-    final_image_bounded_box = (latitude_left, longitude_bottom, latitude_right, latitude_top)
 
     relevant_tiles = []
 
@@ -57,7 +53,7 @@ def get_paths_of_tile_images(
             # TODO @Karim: handle this error better later.
             raise Exception(error_message)
 
-        if is_bbox_intersects(tile_bounded_box, final_image_bounded_box):
+        if is_bbox_intersects(tile_bounded_box, image_bounded_box):
             relevant_tiles.append(image_file)
 
     logging.info(f"Found {len(relevant_tiles)} tile(s) intersecting the required area.")
@@ -97,11 +93,11 @@ def get_image(
     latitude_left = latitude - radius
     longitude_bottom = longitude - radius
     latitude_right = latitude + radius
-    latitude_top = longitude + radius
+    longitude_top = longitude + radius
 
-    tile_image_paths = get_paths_of_tile_images(
-        latitude_left, longitude_bottom, latitude_right, latitude_top, Path(dataset_directory_path)
-    )
+    final_image_bounded_box = (latitude_left, longitude_bottom, latitude_right, longitude_top)
+
+    tile_image_paths = get_paths_of_tile_images(final_image_bounded_box, Path(dataset_directory_path))
 
     if not tile_image_paths:
         # TODO @Karim: I need to consider case when I selected last image in dataset (e.g no image below and right).
@@ -115,7 +111,7 @@ def get_image(
     #    Then we can resize to 256x256 in the end.
 
     mosaic_width = int(latitude_right - latitude_left + 1)
-    mosaic_height = int(latitude_top - longitude_bottom + 1)
+    mosaic_height = int(longitude_top - longitude_bottom + 1)
 
     # If radius=100, mosaic_width ~ 200 px, mosaic_height ~ 200 px
     if mosaic_width <= 0 or mosaic_height <= 0:
@@ -135,20 +131,20 @@ def get_image(
                     left=latitude_left,  # x_min
                     bottom=longitude_bottom,  # y_min
                     right=latitude_right,  # x_max
-                    top=latitude_top,  # y_max
+                    top=longitude_top,  # y_max
                     transform=src.transform,
                 )
 
                 # Read the first 3 bands (assuming RGB; adjust if your .jp2 has more/different bands)
-                partial_data = src.read([1, 2, 3], window=window, boundless=True, fill_value=0)
+                partial_data = src.read([1, 2, 3], window=window)
                 # partial_data shape: (3, h, w)
 
                 partial_data = np.transpose(partial_data, (1, 2, 0))  # shape: (h, w, 3)
                 partial_data = np.clip(partial_data, 0, 255).astype(np.uint8)
 
                 # 3) Figure out where to place partial_data in the mosaic
-                #    We'll define top-left of mosaic as (latitude_left, latitude_top)
-                #    so pixel (0,0) in mosaic corresponds to (x=latitude_left, y=latitude_top).
+                #    We'll define top-left of mosaic as (latitude_left, longitude_top)
+                #    so pixel (0,0) in mosaic corresponds to (x=latitude_left, y=longitude_top).
 
                 # RasterIO has origin top-left, but in EPSG coords top > bottom.
                 # We'll invert row index: row = top - pixel_y, col = pixel_x - left
@@ -158,10 +154,10 @@ def get_image(
                 read_left, read_bottom, read_right, read_top = actual_bounds
 
                 # Convert bounding box to mosaic indices
-                # col = x - latitude_left; row = latitude_top - y
+                # col = x - latitude_left; row = longitude_top - y
                 start_col = int(read_left - latitude_left)
                 end_col = start_col + partial_data.shape[1]
-                start_row = int(latitude_top - read_top)
+                start_row = int(longitude_top - read_top)
                 end_row = start_row + partial_data.shape[0]
 
                 # Clip if out of mosaic array bounds
@@ -200,15 +196,15 @@ if __name__ == "__main__":
 
     # In the middle coordinates of 'dop10rgbi_32_468_5772_1_nw_2022' image file.
     # Expected to provide 1 tile  (cutted  in the middle 'dop10rgbi_32_468_5772_1_nw_2022' image)
-    get_image(
-        latitude=8.54010563577907,
-        longitude=52.10215462837978,
-        dataset_directory_path="/Users/ksafiullin/src/geospatial-data-processing/data/orthophotos/nw",
-        radius=100,
-    ).show()
+    # get_image(
+    #     latitude=8.54010563577907,
+    #     longitude=52.10215462837978,
+    #     dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",
+    #     radius=100,
+    # ).show()
 
-    # Test on the corner of 'dop10rgbi_32_468_5772_1_nw_2022', will it provide 4 tiles or not.
+    # # Test on the corner of 'dop10rgbi_32_468_5772_1_nw_2022', will it provide 4 tiles or not.
     get_image(
         *convert_epsg_25832_to_epsg_4326(468002, 5772002),
-        dataset_directory_path="/Users/ksafiullin/src/geospatial-data-processing/data/orthophotos/nw",
+        dataset_directory_path="/Users/ksafiullin/src/geospatial_data_processing/data/orthophotos/nw",
     ).show()

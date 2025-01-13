@@ -2,8 +2,6 @@
 
 data
 
-
-
 # Default Github offered gitignore config for Python repository
 # Byte-compiled / optimized / DLL files
 __pycache__/

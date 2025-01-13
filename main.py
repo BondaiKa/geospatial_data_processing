@@ -1,4 +1,3 @@
-import copy
 import logging
 import pathlib
 from pathlib import Path
@@ -107,6 +106,7 @@ def get_image(
     final_image_bounding_box = (latitude_left, longitude_bottom, latitude_right, longitude_top)
 
     tile_image_paths = get_paths_of_tile_images(final_image_bounding_box, Path(dataset_directory_path))
+    tile_image_paths.sort()  # Not necessary. Pathlib already sort it, but just in case.
 
     if not tile_image_paths:
         # TODO @Karim: I need to consider case when I selected last image in dataset (e.g no image below and right).
@@ -125,11 +125,9 @@ def get_image(
         )
 
     if len(tile_image_paths) == 4:
-        _tile_image_paths = copy.deepcopy(tile_image_paths)
-        _tile_image_paths.sort()
         return concat_vertically(
-            concat_two_tile_images(final_image_bounding_box, [_tile_image_paths[1], _tile_image_paths[3]]),
-            concat_two_tile_images(final_image_bounding_box, [_tile_image_paths[0], _tile_image_paths[2]]),
+            concat_two_tile_images(final_image_bounding_box, [tile_image_paths[1], tile_image_paths[3]]),
+            concat_two_tile_images(final_image_bounding_box, [tile_image_paths[0], tile_image_paths[2]]),
         ).resize(
             (256, 256), Image.BILINEAR  # type: ignore
         )

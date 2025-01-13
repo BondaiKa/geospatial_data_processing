@@ -136,8 +136,8 @@ def concat_two_tile_images(
     if first_tile_langitude == second_tile_langitude:
         if first_tile_longitude < second_tile_longitude:
             return concat_vertically(
-                generate_tile_image(final_image_bounding_box, tile_image_paths[0]),
                 generate_tile_image(final_image_bounding_box, tile_image_paths[1]),
+                generate_tile_image(final_image_bounding_box, tile_image_paths[0]),
             )
         else:
             return concat_vertically(

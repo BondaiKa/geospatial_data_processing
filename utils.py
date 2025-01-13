@@ -76,6 +76,7 @@ def convert_epsg_25832_to_epsg_4326(latitude: float, longitude: float) -> Tuple[
 
 
 def concat_hortizontally(left_image, right_image):
+    log.info("Concatinating tile images horizontally.")
     dst = Image.new("RGB", (left_image.width + right_image.width, left_image.height))
     dst.paste(left_image, (0, 0))
     dst.paste(right_image, (left_image.width, 0))
@@ -83,6 +84,7 @@ def concat_hortizontally(left_image, right_image):
 
 
 def concat_vertically(top_image, bottom_image):
+    log.info("Concatinating tile images vertically.")
     dst = Image.new("RGB", (top_image.width, top_image.height + bottom_image.height))
     dst.paste(top_image, (0, 0))
     dst.paste(bottom_image, (0, top_image.height))
@@ -104,15 +106,15 @@ def generate_tile_image(
     tile_bounding_box: Tuple[LatitudeLeft, LongitudeBottom, LatitudeRight, LatitudeTop],
     tile_image_path: pathlib.Path,
 ):
-    log.info(f"Generating {tile_image_path.stem} tile image")
+    log.info(f"Generating {tile_image_path.stem} tile image.")
     with rasterio.open(tile_image_path) as src:
         window = rasterio.windows.from_bounds(
             *tile_bounding_box,
             transform=src.transform,
         )
-        log.info(window)
+        log.debug(window)
         partial_rgb = src.read([1, 2, 3], window=window)
-        log.info(partial_rgb.shape)
+        log.debug(partial_rgb.shape)
 
         partial_rgb = np.transpose(partial_rgb, (1, 2, 0))
         return Image.fromarray(partial_rgb, mode="RGB")

@@ -82,6 +82,10 @@ def get_image(
     - 'dataset_directory_path' - orthophotos directory full path
         (E.g. '/Users/ksafiullin/src/geospatial-data-processing/data/orthophotos/nw').
 
+    @TODO Karim: now logic based on filenames which is not good, but better that nothing =D
+    @TODO Karim: Rare case, when only part of tile images are available and I need to fill
+        partially with black images, not implemented.
+
     Steps:
     1) Verify incoming data is on EPSG:4326 format.
     2) Compute bounding box: (left, bottom, right, top).

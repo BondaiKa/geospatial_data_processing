@@ -5,13 +5,13 @@ description = "Geospatial data processing home assigment for one company."
 authors = ["Karim <st.herbinar@gmail.com>"]
 license = "MIT License"
 readme = "README.md"
-packages = [{include = "*"}]
 
 [tool.poetry.dependencies]
 python = "^3.13"
 rasterio = "^1.4.3"
 ipykernel = "^6.29.5"
 pyproj = "^3.7.0"
+pillow = "^11.1.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.10.0"

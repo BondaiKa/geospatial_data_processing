@@ -61,13 +61,16 @@ To get started with this project, follow the steps below:
    ```
 2. **Install virtual environment**
     ```bash
-    poetry install
+    poetry config virtualenvs.in-project true
+    poetry install --no-root
+    poetry self add poetry-plugin-shell
     ```
 3. **Download and unzip dataset manually**  
 You can download it everywhere, the only thing you need to do is to change `DATASET_DIRECTORY_ROOT_PATH` variable in notebooks or `main.py` as well.
 
 4. Run main.py
     ```bash
+    poetry shell
     poetry run python main.py
     ```
 

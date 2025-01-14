@@ -27,7 +27,7 @@ A comprehensive repository, that contains all necesary information/instructures/
     - [X] Find the way how to use the promt with constant `radious`.
 - [X] Understand data first (at least read it and look with you own eyes!).
 - [X] Learn more about Geospatial data handling, GIS, and Coordinate Reference Systems (CRS).
-- [X] Write `dumb` pipeline (_time_ is more important than _optimization_) for now.
+- [X] Write `dumb`/`first version` pipeline (_time_ is more important than _optimization_) for now.
 - [ ] Add tests.
 - [ ] Add `click` libarary to run main.py  more conveniet way and play with `latitude` and `longitudes` in terminal.
 - [X] Document the process.
@@ -50,25 +50,31 @@ Retrieve and return `image` from data from provided `latitude` and `longitude`.
 
 ## Installation
 
-To get started with this project, follow the steps below:
+Follow the steps below to set up the project:
 
-0. **Prequistitions**:
-    - Install `python`, `poetry`.
-1. **Clone the Repository**:
+0. **Prerequisites**  
+    Ensure you have the following installed:
+   - `Python` (>=3.8)
+   - `Poetry`
+1. **Clone the Repository**
    ```bash
    git clone git@github.com:BondaiKa/geospatial_data_processing.git
    cd geospatial_data_processing
    ```
-2. **Install virtual environment**
+2. **Set up the Virtual Environment**  
+    Configure Poetry to create a virtual environment in the project folder and install dependencies:
     ```bash
     poetry config virtualenvs.in-project true
     poetry install --no-root
     poetry self add poetry-plugin-shell
     ```
-3. **Download and unzip dataset manually**  
-You can download it everywhere, the only thing you need to do is to change `DATASET_DIRECTORY_ROOT_PATH` variable in notebooks or `main.py` as well.
+3. **Download and Unzip the Dataset**  
+    -	Download the dataset manually from the appropriate source.
+	-	Save it in your preferred location.
+	-	Update the DATASET_DIRECTORY_ROOT_PATH variable in the notebooks or main.py to point to your dataset.
 
-4. Run main.py
+4. **Run the Project**  
+    Activate the virtual environment and run the main script:
     ```bash
     poetry shell
     poetry run python main.py
@@ -76,12 +82,15 @@ You can download it everywhere, the only thing you need to do is to change `DATA
 
 ## Developing / Technical documentation
 
-To develop in the project you need to setup pre-commit
-
-```
-poetry shell
-pre-commit install
-```
+To contribute to this project, set up `pre-commit` as follows:
+1. Activate the virtual environment:
+    ```bash
+    poetry shell
+    ```
+2. Install pre-commit hooks:
+    ```bash
+    pre-commit install
+    ```
 
 ### Name Conventions in the Project.
 

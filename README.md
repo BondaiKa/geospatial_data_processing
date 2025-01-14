@@ -1,19 +1,19 @@
 # Geospatial Data Processing
-A comprehensive repository, that contains all necesary information/instructures/code for preprocessing orthophotos based on geospatial queries, including stitching, resizing, and performance optimization.
+A comprehensive repository that contains all necessary information/instructions/code for preprocessing orthophotos based on geospatial queries, including stitching, resizing, and performance optimization.
 
 ## Project Structure
 
-- `notebooks/` - contains analysis or attempt walkthrough how I solved some issues
-- `main.py` - entrypoin of the repostory.
-- `utils.py` - is used in `main.py` as well as in notebooks.
-- `pyproject.toml` - list of packages to install (similar to `requirements.txt`)
+- `notebooks/` - contains analysis or attempts to walkthrough how I solved some issues.
+- `main.py` - entry point of the repository.
+- `utils.py` - used in `main.py` as well as in notebooks.
+- `pyproject.toml` - lists the packages to install (similar to `requirements.txt`).
 
-## General information
-- Official started date: 10.01.2024 (14:00 CET)
-- Real started date: 11.01.2024
+## General Information
+- Official start date: 10.01.2024 (14:00 CET)
+- Real start date: 11.01.2024
 - Deadline: 14.01.2024 (14:00 CET, when I received an email)
 
-## Prequistitions
+## Prerequisites
 
 - [X] Proficiency in Python programming.
 - [X] Knowledge of Geospatial data handling, GIS, and Coordinate Reference Systems (CRS).
@@ -22,31 +22,31 @@ A comprehensive repository, that contains all necesary information/instructures/
 ## Task
 
 ### TODO List
-- [X] Read carefully task defintion (2 times or more to verify that this is exactly what company asks!) and write for yourself task definition.
-    - [X] Verify that you don't need to read image to provide `Latitude` and `Longitude`.
-    - [X] Find the way how to use the promt with constant `radious`.
-- [X] Understand data first (at least read it and look with you own eyes!).
+- [X] Read the task definition carefully (2 times or more to verify that this is exactly what the company asks!) and write the task definition for yourself.
+    - [X] Verify that you don't need to read the image to provide `Latitude` and `Longitude`.
+    - [X] Find a way to use the prompt with a constant `radius`.
+- [X] Understand the data first (at least read it and look with your own eyes!).
 - [X] Learn more about Geospatial data handling, GIS, and Coordinate Reference Systems (CRS).
-- [X] Write `dumb`/`first version` pipeline (_time_ is more important than _optimization_) for now.
+- [X] Write a `dumb`/`first version` pipeline (_time_ is more important than _optimization_) for now.
 - [ ] Add tests.
-- [ ] Add `click` libarary to run main.py  more conveniet way and play with `latitude` and `longitudes` in terminal.
+- [ ] Add the `click` library to run `main.py` in a more convenient way and play with `latitude` and `longitude` in the terminal.
 - [X] Document the process.
 - [ ] Write draft slides.
 - [X] Optimize the process.
-    - [X] Check the ways of potential optimization of input images. Can I not read whole image?
-- [X] Update Documentation.
-- [X] Do performance analysis (Partially achieved).
+    - [X] Check for potential optimization methods for input images. Can I avoid reading the whole image?
+- [X] Update documentation.
+- [X] Perform performance analysis (Partially achieved).
 - [X] Submit.
 
-### 🚀 Main Goal: 
-Retrieve and return `image` from data from provided `latitude` and `longitude`.
+### 🚀 Main Goal:
+Retrieve and return an `image` from the data for the provided `latitude` and `longitude`.
 
-#### Input data
-- Sample of [provided dataset](https://drive.usercontent.google.com/download?id=140PpLsdnVOQVIp5ia9jT_yvqtcWtF8Gj&export=download&confirm=t&uuid=483b1776-4e25-4976-9837-b498c823754a) was given. 
-- One image has 1x1 km area.
-- Real dataset could be much bigger than provided one.
-- There is information, that one filename `...X_Y...` has latitude, longtitude range from `X/Y` till `X/Y+1000` and I need to extract It.
-- `radius` param could be from `1` till `100` meters.
+#### Input Data
+- A sample of the [provided dataset](https://drive.usercontent.google.com/download?id=140PpLsdnVOQVIp5ia9jT_yvqtcWtF8Gj&export=download&confirm=t&uuid=483b1776-4e25-4976-9837-b498c823754a) was given. 
+- One image covers a 1x1 km area.
+- The real dataset could be much larger than the provided one.
+- There is information that one filename `...X_Y...` contains latitude and longitude ranges from `X/Y` to `X/Y+1000`. I need to extract this data.
+- The `radius` parameter can range from `1` to `100` meters.
 
 ## Installation
 

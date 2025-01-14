@@ -75,6 +75,14 @@ You can download it everywhere, the only thing you need to do is to change `DATA
     ```
 
 ## Developing / Technical documentation
+
+To develop in the project you need to setup pre-commit
+
+```
+poetry shell
+pre-commit install
+```
+
 ### Name Conventions in the Project.
 
 `Latitude`, `Longitude` are preferable to use as variables in this project. 

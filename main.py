@@ -28,7 +28,7 @@ LatitudeRight = float
 LatitudeTop = float
 
 
-def validate_input(latitude: float, longitude: float, radius: float = 100, epsg_25832=False) -> None:
+def validate_input(latitude: float, longitude: float, radius: float = 100, epsg_25832: bool = False) -> None:
     log.info(f"Incoming latitude '{latitude}' and longitude '{longitude}' with set radius '{radius}'.")
 
     if not epsg_25832 and (not -90 < latitude < 90 and not -180 < longitude < 180):

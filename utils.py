@@ -44,7 +44,10 @@ def get_bounding_box(
     return (latitude_left, longitude_bottom, latitude_right, latitude_top)
 
 
-def is_bbox_intersects(tile_bbox, final_image_bbox) -> bool:
+def is_bbox_intersects(
+    tile_bbox: Tuple[LatitudeLeft, LongitudeBottom, LatitudeRight, LatitudeTop],
+    final_image_bbox: Tuple[LatitudeLeft, LongitudeBottom, LatitudeRight, LatitudeTop],
+) -> bool:
     """Return boolean if tile image and final generated image overlap or not."""
     (tile_bbox_left, tile_bbox_bottom, tile_bbox_right, tile_bbox_top) = tile_bbox
     (final_image_bbox_left, final_image_bbox_bottom, final_image_bbox_right, final_image_bbox_top) = final_image_bbox
